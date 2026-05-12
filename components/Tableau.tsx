@@ -12,6 +12,8 @@ export default function Tableau({
   onDragStart,
   onDrop,
 }: TableauProps) {
+  const CARD_OVERLAP = 56; // pixels of overlap between cards
+
   return (
     <div className="flex gap-4 justify-between">
       {tableau.map((column, colIdx) => (
@@ -19,15 +21,24 @@ export default function Tableau({
           key={colIdx}
           onDragOver={(e) => e.preventDefault()}
           onDrop={() => onDrop(`tableau-${colIdx}`)}
-          className="flex flex-col gap-2 min-h-96"
+          className="relative"
+          style={{
+            minHeight: `${Math.max(24, column.length * CARD_OVERLAP + 112)}px`,
+          }}
         >
           {column.length === 0 ? (
-            <CardComponent faceDown={false} />
+            <div className="absolute top-0 left-0">
+              <CardComponent faceDown={false} />
+            </div>
           ) : (
             column.map((card, cardIdx) => (
               <div
                 key={card.id}
-                className={cardIdx < column.length - 1 ? '-mt-20' : ''}
+                className="absolute left-0 cursor-grab active:cursor-grabbing"
+                style={{
+                  top: `${cardIdx * CARD_OVERLAP}px`,
+                  zIndex: cardIdx,
+                }}
               >
                 <CardComponent
                   card={card}
