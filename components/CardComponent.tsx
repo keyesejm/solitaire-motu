@@ -2,7 +2,7 @@ import { Card } from '@/lib/types';
 import { suitSymbol, suitColor } from '@/lib/utils';
 
 interface CardComponentProps {
-  card: Card | null;
+  card?: Card | null;
   onClick?: () => void;
   onDragStart?: (card: Card, source: string) => void;
   onDragOver?: (e: React.DragEvent) => void;

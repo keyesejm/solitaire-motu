@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { GameState, Card } from '@/lib/types';
+import { GameState, Card, Suit } from '@/lib/types';
 import {
   createDeck,
   canPlaceOnTableau,
@@ -111,7 +111,7 @@ export default function Game({ settings }: GameProps) {
   };
 
   const handleDrop = (target: string) => {
-    if (!gameState || !draggedCard) return;
+    if (!gameState || !draggedCard || !dragSource) return;
 
     saveUndoState();
 
@@ -134,7 +134,7 @@ export default function Game({ settings }: GameProps) {
         newState.tableau[colIdx].splice(idx, 1);
       }
     } else if (dragSource.startsWith('foundation-')) {
-      const suit = dragSource.split('-')[1] as any;
+      const suit = dragSource.split('-')[1] as Suit;
       const idx = newState.foundations[suit].findIndex(
         (c) => c.id === draggedCard.id
       );
@@ -151,7 +151,7 @@ export default function Game({ settings }: GameProps) {
         canMove = true;
       }
     } else if (target.startsWith('foundation-')) {
-      const suit = target.split('-')[1] as any;
+      const suit = target.split('-')[1] as Suit;
       if (canPlaceOnFoundation(draggedCard, newState.foundations[suit])) {
         newState.foundations[suit].push(draggedCard);
         canMove = true;
@@ -173,7 +173,7 @@ export default function Game({ settings }: GameProps) {
         const colIdx = parseInt(dragSource.split('-')[1]);
         newState.tableau[colIdx].push(draggedCard);
       } else if (dragSource.startsWith('foundation-')) {
-        const suit = dragSource.split('-')[1] as any;
+        const suit = dragSource.split('-')[1] as Suit;
         newState.foundations[suit].push(draggedCard);
       }
       setGameState(newState);
