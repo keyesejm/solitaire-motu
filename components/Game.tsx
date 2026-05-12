@@ -244,14 +244,14 @@ export default function Game({ settings }: GameProps) {
   if (!gameState) return <div className="p-8">Loading...</div>;
 
   return (
-    <div className="p-8 pb-16">
+    <div className="p-4 md:p-6 lg:p-8 pb-16 min-h-screen overflow-auto">
       {gameState.won && <WinScreen moves={gameState.moves} />}
 
-      <div className="max-w-6xl mx-auto">
+      <div className="w-full">
         {/* Top Section: Deck and Foundations */}
-        <div className="flex justify-between mb-8">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6 mb-6 md:mb-8 justify-between items-start md:items-end">
           <div>
-            <h3 className="text-sm font-bold mb-2 opacity-70">DECK</h3>
+            <h3 className="text-xs md:text-sm font-bold mb-2 opacity-70">DECK</h3>
             <Deck
               deck={gameState.deck}
               waste={gameState.waste}
@@ -262,7 +262,7 @@ export default function Game({ settings }: GameProps) {
           </div>
 
           <div>
-            <h3 className="text-sm font-bold mb-2 opacity-70">FOUNDATIONS</h3>
+            <h3 className="text-xs md:text-sm font-bold mb-2 opacity-70">FOUNDATIONS</h3>
             <Foundations
               foundations={gameState.foundations}
               onDragStart={handleDragStart}
@@ -270,17 +270,17 @@ export default function Game({ settings }: GameProps) {
             />
           </div>
 
-          <div className="flex gap-4 items-end">
+          <div className="flex gap-2 md:gap-4 items-end flex-shrink-0">
             <button
               onClick={handleUndo}
               disabled={gameState.undo.length === 0}
-              className="px-4 py-2 bg-green-600 text-white font-bold hover:bg-green-500 disabled:opacity-50 transition-colors"
+              className="px-3 md:px-4 py-2 text-sm md:text-base bg-green-600 text-white font-bold hover:bg-green-500 disabled:opacity-50 transition-colors whitespace-nowrap"
             >
               ↶ UNDO
             </button>
             <button
               onClick={initializeGame}
-              className="px-4 py-2 bg-red-600 text-white font-bold hover:bg-red-500 transition-colors"
+              className="px-3 md:px-4 py-2 text-sm md:text-base bg-red-600 text-white font-bold hover:bg-red-500 transition-colors whitespace-nowrap"
             >
               RESTART
             </button>

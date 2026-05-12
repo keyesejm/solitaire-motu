@@ -21,7 +21,7 @@ export default function Foundations({
   const suits: Suit[] = ['hearts', 'diamonds', 'clubs', 'spades'];
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-2 md:gap-4">
       {suits.map((suit) => {
         const topCard = foundations[suit][foundations[suit].length - 1];
         return (

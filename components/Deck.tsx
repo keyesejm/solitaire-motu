@@ -19,7 +19,7 @@ export default function Deck({
   const topWaste = waste.length > 0 ? waste[waste.length - 1] : null;
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-2 md:gap-4">
       {/* Draw Pile */}
       <div>
         <button
